@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Скрипт сортировки</h2>
+    <form action="" id="someId2">
+        <label for="someId">Введите значения через запятую</label>
+        <input type="text" id="someId" placeholder="Например: 1, 3, 5, 2, 4">
+        <input type="submit" value="Отсортировать">
+        <div id="result"></div>
+    </form>
+    <script>
+        document.getElementById("someId2").addEventListener("submit", async function (event) {
+            event.preventDefault()
+
+            const input = document.getElementById("someId").value
+            const array = input.split(",").map(num => { return parseInt(num.trim(), 10) })
+
+            const response = await fetch(`/sort`, {
+                method: 'POST',
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    array
+                })
+            })
+
+            const data = await response.json()
+
+            document.getElementById("result").innerText = `sortId: ${data.sortId},\nОтсортированный массив: ${data.sortedArray}`
+
+            console.log(array)
+
+        })
+    </script>
+</body>
+</html>

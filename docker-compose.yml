@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=someusername
+      - POSTGRES_PASSWORD=somepassword
+      - POSTGRES_DB=sort_results
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
